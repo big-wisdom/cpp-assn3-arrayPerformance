@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <chrono>
 #include "sortutils.hpp"
 
 void initializeRawArrayFromStdArray(const SourceArray& source, int dest[]){
@@ -13,12 +14,17 @@ void organPipeStdArray(SourceArray& data){
 
 void timeRawArray(SourceArray sa)
 {
+    std::chrono::duration<double> totalTime = std::chrono::steady_clock::duration::zero();
     for(int i=0; i < HOW_MANY_TIMES; i++)
     {
         int raw[250000];
         initializeRawArrayFromStdArray(sa, raw);
+        auto start = std::chrono::steady_clock::now(); // start timer
         std::sort(raw, raw + 250000);
+        auto end = std::chrono::steady_clock::now(); // end timer
+        totalTime += end - start;
     }
+    std::cout << "Sort took: " << totalTime.count() << " seconds" << std::endl;
 }
 
 void evaluateRawArray(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated){
