@@ -1,11 +1,9 @@
 #include <iostream>
+#include <algorithm>
 #include "sortutils.hpp"
 
-
 void initializeRawArrayFromStdArray(const SourceArray& source, int dest[]){
-    std::cout << "Init Raw Array" << std::endl;
-    std::cout << source.size() << std::endl;
-    std::cout << dest << std::endl;
+    std::copy(source.begin(), source.end(), dest);
 }
 
 void organPipeStdArray(SourceArray& data){

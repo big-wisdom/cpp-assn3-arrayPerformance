@@ -14,6 +14,6 @@ SourceArray generateArray()
 
 int main() {
     SourceArray source = generateArray();
-    std::cout << source.size() << std::endl;
+    std::cout << "Size of new array: " << source.size() << std::endl;
     return 0;
 }
