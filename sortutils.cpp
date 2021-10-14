@@ -11,20 +11,24 @@ void organPipeStdArray(SourceArray& data){
     std::cout << data.size() << std::endl;
 }
 
-void evaluateRawArray(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated){
-    std::cout << sorted.size() << std::endl;
-    // copy into raw array
-    std::cout << random.size() << std::endl;
-    // copy into raw array
-    std::cout << reversed.size() << std::endl;
-    // copy into raw array
-    std::cout << rotated.size() << std::endl;
-    // copy into raw array
-    std::cout << organPipe.size() << std::endl;
-    // copy into raw array
-
-    // sort HOW_MANY_TIMES
+void timeRawArray(SourceArray sa)
+{
+    for(int i=0; i < HOW_MANY_TIMES; i++)
+    {
+        int raw[250000];
+        initializeRawArrayFromStdArray(sa, raw);
+        std::sort(raw, raw + 250000);
+    }
 }
+
+void evaluateRawArray(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated){
+    timeRawArray(random);
+    timeRawArray(sorted);
+    timeRawArray(reversed);		
+    timeRawArray(organPipe);
+    timeRawArray(rotated);
+}
+
 
 void evaluateStdArray(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated){
     std::cout << "evaluate STD Array" << std::endl;
