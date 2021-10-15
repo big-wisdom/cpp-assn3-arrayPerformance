@@ -31,7 +31,12 @@ std::array<int, 9> organPipe()
     // SourceArray source = sorted();
     std::array<int, 9> source = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
     //int n = source.size() /2;
-    std::reverse_copy(source.begin(),source.begin()+ source.size()/2, source.begin()+(source.size()/2)+1);
+    if((source.size() % 2) == 0){
+        std::reverse_copy(source.begin(),source.begin()+ source.size()/2, source.begin()+(source.size()/2));
+    } else {
+        std::reverse_copy(source.begin(),source.begin()+ source.size()/2, source.begin()+(source.size()/2)+1);
+    }
+
     return source;
 }
 
