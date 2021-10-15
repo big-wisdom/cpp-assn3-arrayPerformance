@@ -12,8 +12,15 @@ SourceArray generateArray()
     return array;
 }
 
+SourceArray sorted()
+{
+    SourceArray source = generateArray();
+    std::sort(source.begin(), source.end());
+    return source;
+}
+
 int main() {
     SourceArray source = generateArray();
-    evaluateRawArray(source, source, source, source, source);
+    evaluateRawArray(source, sorted(), source, source, source);
     return 0;
 }
