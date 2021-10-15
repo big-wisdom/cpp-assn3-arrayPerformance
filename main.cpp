@@ -19,8 +19,15 @@ SourceArray sorted()
     return source;
 }
 
+SourceArray reversed()
+{
+    SourceArray source = sorted();
+    std::reverse(source.begin(), source.end());
+    return source;
+}
+
 int main() {
     SourceArray source = generateArray();
-    evaluateRawArray(source, sorted(), source, source, source);
+    evaluateRawArray(source, sorted(), reversed(), source, source);
     return 0;
 }
