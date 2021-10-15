@@ -1,3 +1,4 @@
+#include <thread>
 #include <iostream>
 #include <random>
 #include "sortutils.hpp"
@@ -26,28 +27,11 @@ SourceArray reversed()
     return source;
 }
 
-std::array<int, 9> organPipe()
-{
-    // SourceArray source = sorted();
-    std::array<int, 9> source = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    //int n = source.size() /2;
-    if((source.size() % 2) == 0){
-        std::reverse_copy(source.begin(),source.begin()+ source.size()/2, source.begin()+(source.size()/2));
-    } else {
-        std::reverse_copy(source.begin(),source.begin()+ source.size()/2, source.begin()+(source.size()/2)+1);
-    }
-
-    return source;
-}
-
 int main() {
     SourceArray source = generateArray();
-    std::array<int, 9> op = organPipe();
-    for(int i : op)
-    {
-        std::cout << i << " ";
-    }
-    std::cout << std::endl;
-    evaluateRawArray(source, sorted(), reversed(), source, source);
+    SourceArray op = generateArray();
+    organPipeStdArray(op);
+
+    evaluateRawArray(source, sorted(), reversed(), op, source);
     return 0;
 }

@@ -8,8 +8,11 @@ void initializeRawArrayFromStdArray(const SourceArray& source, int dest[]){
 }
 
 void organPipeStdArray(SourceArray& data){
-    std::cout << "organ pipe" << std::endl;
-    std::cout << data.size() << std::endl;
+    if((data.size() % 2) == 0){
+        std::reverse_copy(data.begin(),data.begin()+ data.size()/2, data.begin()+(data.size()/2));
+    } else {
+        std::reverse_copy(data.begin(),data.begin()+ data.size()/2, data.begin()+(data.size()/2)+1);
+    }
 }
 
 void timeRawArray(SourceArray sa)
