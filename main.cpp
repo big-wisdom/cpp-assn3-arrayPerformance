@@ -27,11 +27,17 @@ SourceArray reversed()
     return source;
 }
 
+SourceArray rotated()
+{
+    SourceArray source = sorted();
+    std::rotate(source.begin(), source.begin() + 1, source.end());
+    return source;
+}
+
 int main() {
     SourceArray source = generateArray();
     SourceArray op = generateArray();
     organPipeStdArray(op);
-
-    evaluateRawArray(source, sorted(), reversed(), op, source);
+    evaluateRawArray(source, sorted(), reversed(), op, rotated());
     return 0;
 }
