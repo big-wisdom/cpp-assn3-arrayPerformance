@@ -38,6 +38,17 @@ int main() {
     SourceArray source = generateArray();
     SourceArray op = generateArray();
     organPipeStdArray(op);
+
+    std::cout << "--- Raw Array Performance ---" << std::endl;
     evaluateRawArray(source, sorted(), reversed(), op, rotated());
+    std::cout << std::endl;
+
+    std::cout << "--- std::array Performance ---" << std::endl;
+    evaluateStdArray(source, sorted(), reversed(), op, rotated());
+    std::cout << std::endl;
+
+    std::cout << "--- std::vector Performace ---" << std::endl;
+    evaluateStdVector(source, sorted(), reversed(), op, rotated());
+    std::cout << std::endl;
     return 0;
 }

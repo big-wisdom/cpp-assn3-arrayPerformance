@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <chrono>
+#include <execution>
 #include "sortutils.hpp"
 
 void initializeRawArrayFromStdArray(const SourceArray& source, int dest[]){
@@ -23,7 +24,7 @@ void timeRawArray(SourceArray sa)
         int raw[250000];
         initializeRawArrayFromStdArray(sa, raw);
         auto start = std::chrono::steady_clock::now(); // start timer
-        std::sort(raw, raw + 250000);
+        std::sort(std::execution::seq ,raw, raw + 250000);
         auto end = std::chrono::steady_clock::now(); // end timer
         totalTime += end - start;
     }
@@ -38,23 +39,48 @@ void evaluateRawArray(const SourceArray& random, const SourceArray& sorted, cons
     timeRawArray(rotated);
 }
 
+void timeStdArray(SourceArray source){
+
+    std::chrono::duration<double> totalTime = std::chrono::steady_clock::duration::zero();
+    for(int i=0; i < HOW_MANY_TIMES; i++)
+    {
+        std::array<int, 250000> sa;
+        std::copy(source.begin(), source.end(), sa.begin());
+        auto start = std::chrono::steady_clock::now(); // start timer
+        std::sort(sa.begin(), sa.end());
+        auto end = std::chrono::steady_clock::now(); // end timer
+        totalTime += end - start;
+    }
+    std::cout << "Sort took: " << totalTime.count() << " seconds" << std::endl;
+}
 
 void evaluateStdArray(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated){
-    std::cout << "evaluate STD Array" << std::endl;
-    std::cout << sorted.size() << std::endl;
-    std::cout << random.size() << std::endl;
-    std::cout << reversed.size() << std::endl;
-    std::cout << rotated.size() << std::endl;
-    std::cout << organPipe.size() << std::endl;
+    timeStdArray(random);
+    timeStdArray(sorted);
+    timeStdArray(reversed);		
+    timeStdArray(organPipe);
+    timeStdArray(rotated);
+}
+
+void timeStdVector(SourceArray source)
+{
+    std::chrono::duration<double> totalTime = std::chrono::steady_clock::duration::zero();
+    for(int i=0; i < HOW_MANY_TIMES; i++)
+    {
+        std::vector<int> vector;
+        std::copy(source.begin(), source.end(), std::back_inserter(vector));
+        auto start = std::chrono::steady_clock::now(); // start timer
+        std::sort(vector.begin(), vector.end());
+        auto end = std::chrono::steady_clock::now(); // end timer
+        totalTime += end - start;
+    }
+    std::cout << "Sort took: " << totalTime.count() << " seconds" << std::endl;
 }
 
 void evaluateStdVector(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated){
-    std::cout << "evaluate std::vector" << std::endl;
-    std::cout << sorted.size() << std::endl;
-    std::cout << random.size() << std::endl;
-    std::cout << reversed.size() << std::endl;
-    std::cout << rotated.size() << std::endl;
-    std::cout << organPipe.size() << std::endl;
-    // copy into std vector
-    // sort HOW_MANY_TIMES
+    timeStdVector(random);
+    timeStdVector(sorted);
+    timeStdVector(reversed);		
+    timeStdVector(organPipe);
+    timeStdVector(rotated);
 }
